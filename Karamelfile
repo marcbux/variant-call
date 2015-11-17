@@ -1,0 +1,5 @@
+dependencies:
+  - recipe: variant-call::hdfs
+    global: 
+      - hadoop::dn
+      - hadoop::nn

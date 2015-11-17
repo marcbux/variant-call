@@ -1,0 +1,67 @@
+name: variantCallDistributedBaremetal
+baremetal:
+    username: hiway
+
+cookbooks:
+  hadoop:
+    github: "hopshadoop/apache-hadoop-chef"
+    branch: "master"
+  hiway:
+    github: "marcbux/hiway-chef"
+    branch: "master"
+  chef-bioinf-worker:
+    github: "joergen7/chef-bioinf-worker"
+    branch: "master"
+  chef-cuneiform:
+    github: "joergen7/chef-cuneiform"
+    branch: "master"
+
+attrs:
+  dir:
+    wf: "/home/hiway"
+    data: "/mnt/data"
+  hiway:
+    user: 'hiway'
+    data: '/mnt/data'
+  hadoop:
+    version: '2.7.1'
+      user: 'hiway'
+    mr:
+      user: 'hiway'
+    tmp_dir: '/mnt/hadoop'
+    data_dir: '/mnt/hadoop'
+    num_replicas: '2'
+  hdfs:
+    user: 'hiway'
+    
+groups:
+  master:
+    size: 1
+    baremetal:
+      ip: 127.0.0.1
+    recipes:
+      - hadoop::nn
+      - hadoop::rm
+      - hadoop::jhs
+      - hiway::cuneiform_client
+      - hiway::hiway_client
+      - hiway::variantcall_client
+      - variant-call::data
+      - variant-call::hdfs
+      - variant-call::workflow
+
+  workers:
+    size: 4
+    baremetal:
+      ips:
+        - 127.0.0.2
+        - 127.0.0.3
+        - 127.0.0.4
+        - 127.0.0.5
+    recipes:
+      - hadoop::dn
+      - hadoop::nm
+      - hiway::cuneiform_worker
+      - hiway::hiway_worker
+      - hiway::variantcall_worker
+      - variant-call::tools
