@@ -13,12 +13,6 @@ cookbooks:
   hiway:
     github: "marcbux/hiway-chef"
     branch: "master"
-  chef-bioinf-worker:
-    github: "marcbux/chef-bioinf-worker"
-    branch: "master"
-  chef-cuneiform:
-    github: "marcbux/chef-cuneiform"
-    branch: "master"
   variant-call:
     github: "marcbux/variant-call"
     branch: "master"

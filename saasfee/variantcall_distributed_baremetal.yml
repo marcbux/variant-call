@@ -28,6 +28,7 @@ attrs:
     data: '/mnt/data'
   hadoop:
     version: '2.7.1'
+    yarn:
       user: 'hiway'
     mr:
       user: 'hiway'
